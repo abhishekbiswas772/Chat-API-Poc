@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  my_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      REDIS_HOST: redis
+      MINIO_URL: minio:9000
+      ACCESS_KEY: minioadmin
+      SECRET_KEY: minioadmin
+
+  redis:
+    image: redis:latest
+
+  minio:
+    image: minio/minio:latest
+    command: ["server", "/data"]
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    ports:
+      - "9000:9000"
+    volumes:
+      - minio_data:/data
+
+volumes:
+  minio_data:
