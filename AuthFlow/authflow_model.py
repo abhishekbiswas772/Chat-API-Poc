@@ -19,7 +19,7 @@ class ChatUserDBModel(db.Model):
 
 
 class ChatUser:
-    def __init__(self, username, password, email, dob, profile_pic):
+    def __init__(self, username=None, password=None, email=None, dob=None, profile_pic=None):
         self.username = username
         self.password = password
         self.email = email

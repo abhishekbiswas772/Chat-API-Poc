@@ -9,8 +9,8 @@ from uploads.upload_manager import UploadManager
 
 blp = Blueprint("Auth Flow", __name__, "Operations for Auth Flow")
 
+@blp.route("/chats/auth/users")
 class AuthRestManager(MethodView):
-    @blp.route("/chats/auth/get_all_users")
     def get(self):
         try:
             all_chat_user = ChatUserDBModel.query.all()
@@ -31,7 +31,6 @@ class AuthRestManager(MethodView):
                 "message" : "Some Issue Happened"
             })
 
-    @blp.route("/chats/auth/create_user")
     def post(self):
         auth_data = request.json
         if not auth_data:
@@ -79,7 +78,9 @@ class AuthRestManager(MethodView):
                 abort(500, message = {
                     "message" : "Some Error Occured"
                 })
-    @blp.route("/chats/auth/get_single_user/<string:user_id>")
+
+@blp.route("/chats/auth/users/<string:user_id>")
+class AuthUpdateRestManager(MethodView):
     def get(self, user_id):
         try:
             user = ChatUserDBModel.query.get(user_id)
@@ -107,8 +108,8 @@ class AuthRestManager(MethodView):
             })
 
 
+@blp.route('/chat/auth/login')
 class AuthLoginRestManager(MethodView):
-    @blp.route('/chat/auth/login')
     def post(self):
         try:
             user_data = request.json

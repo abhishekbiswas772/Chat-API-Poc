@@ -9,8 +9,8 @@ from RedisConfig.redis_manager import RedisManager
 blp = Blueprint("Chat Flow", __name__, "Opeartions for chats")
 redis_manager = RedisManager()
 
+@blp.route("/chats/users")
 class ChatRestManager(MethodView):
-    @blp.route("/chats/list_of_users")
     def get(self):
         try:
             redis_chat_usr = []
@@ -29,8 +29,6 @@ class ChatRestManager(MethodView):
                 "message" : "Some Issue Occured"
             })
          
-
-    @blp.route("/chats/markUserOnline")
     def post(self):
         try:
             chat_data = request.json
@@ -47,7 +45,6 @@ class ChatRestManager(MethodView):
                 "message" : "Some Issue Occured"
             })
 
-    @blp.route("/chat/markUserOffline")
     def put(self):
         try:
             chat_data = request.json

@@ -10,10 +10,10 @@ services:
       MINIO_URL: minio:9000
       ACCESS_KEY: minioadmin
       SECRET_KEY: minioadmin
-
+    ports:
+      - "5000:5000"
   redis:
     image: redis:latest
-
   minio:
     image: minio/minio:latest
     command: ["server", "/data"]
@@ -24,6 +24,5 @@ services:
       - "9000:9000"
     volumes:
       - minio_data:/data
-
 volumes:
   minio_data:
